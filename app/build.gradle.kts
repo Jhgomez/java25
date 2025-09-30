@@ -10,8 +10,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_25
 }
 
+val run by tasks.getting(JavaExec::class) {
+    standardInput = System.`in`
+}
+
 application {
-    mainClass.set("java25.Main")
+    mainClass.set("java25.Client")
     mainModule.set("main")
 }
 
