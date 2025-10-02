@@ -12,14 +12,14 @@ public class Server {
     private static final ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     private static final Deque<String> messagesToClients = new ArrayDeque<>();
 
-    static void main(String[] args) throws IOException {
+    static void main(String... args) throws IOException {
         try (var server = new ServerSocket( 12346)) {
 
             executor.execute(() -> {
                 var scanner = new Scanner(System.in);
 
                 while (!server.isClosed()) {
-                    System.out.print("> ");
+                    System.out.print("s> ");
 
                     var userInput = scanner.nextLine();
                     messagesToClients.offer(userInput);
@@ -51,8 +51,8 @@ public class Server {
 
                         while ((message = in.readLine()) != null) {
 //                            System.out.println("Message received from client: " + message);
-                            System.out.println("\n- " + message);
-                            System.out.print("> ");
+                            System.out.println("\nC- " + message);
+                            System.out.print("s> ");
                         }
 
 //                        System.out.println("Client disconnected");

@@ -5,7 +5,16 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    static void main(String[] args) throws IOException {
+    static void main(String[] args) throws IOException, InterruptedException {
+        Thread.startVirtualThread(() -> {
+            try {
+                Server.main();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread.sleep(5000);
 
         try (Socket socket = new Socket("localhost", 12346)) {
 
@@ -18,8 +27,8 @@ public class Client {
                 try {
                     var message = "";
                     while ((message = in.readLine()) != null) {
-                        System.out.println("\n- " + message);
-                        System.out.print("> ");
+                        System.out.println("\nS- " + message);
+                        System.out.print("c> ");
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -31,7 +40,7 @@ public class Client {
             String userInput = "";
             while (true) {
 //                System.out.print("Waiting for client input: ");
-                System.out.print("> ");
+                System.out.print("c> ");
 
                 userInput = scanner.nextLine();
 
